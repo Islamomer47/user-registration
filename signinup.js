@@ -115,7 +115,7 @@ googleSignInBtn.addEventListener("click", async () => {
     registrationMessage.textContent = "Google sign-in successful!";
     setTimeout(() => {
       window.location.href = "/";
-    }, 1000);
+    }, 4000);
   } catch (error) {
     registrationMessage.textContent = `Error: ${error.message}`;
   }
@@ -146,7 +146,7 @@ googleSignUpBtn.addEventListener("click", async () => {
     registrationMessage.textContent = "Google sign-up successful!";
     setTimeout(() => {
       window.location.href = "/";
-    }, 1000);
+    }, 4000);
   } catch (error) {
     registrationMessage.textContent = `Error: ${error.message}`;
   }
@@ -172,7 +172,7 @@ facebookSignInBtn.addEventListener("click", async () => {
     registrationMessage.textContent = "Facebook sign-in successful!";
     setTimeout(() => {
       window.location.href = "/";
-    }, 1000);
+    }, 4000);
   } catch (error) {
     registrationMessage.textContent = `Error: ${error.message}`;
   }
@@ -198,7 +198,7 @@ facebookSignUpBtn.addEventListener("click", async () => {
     registrationMessage.textContent = "Facebook sign-in successful!";
     setTimeout(() => {
       window.location.href = "/";
-    }, 1000);
+    }, 4000);
   } catch (error) {
     registrationMessage.textContent = `Error: ${error.message}`;
   }
