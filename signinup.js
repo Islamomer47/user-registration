@@ -163,11 +163,9 @@ facebookSignInBtn.addEventListener("click", async () => {
       username: user.displayName.split(" ")[0],
       email: user.email,
       uid: user.uid,
-      age: 0,
     };
 
     await setDoc(doc(firestore, "users", user.uid), userData);
-    await set(ref(database, `users/${user.uid}`), userData);
 
     localStorage.setItem("userData", JSON.stringify(userData));
 
@@ -191,15 +189,13 @@ facebookSignUpBtn.addEventListener("click", async () => {
       username: user.displayName.split(" ")[0],
       email: user.email,
       uid: user.uid,
-      age: 0,
     };
 
     await setDoc(doc(firestore, "users", user.uid), userData);
-    await set(ref(database, `users/${user.uid}`), userData);
 
     localStorage.setItem("userData", JSON.stringify(userData));
 
-    registrationMessage.textContent = "Facebook sign-up successful!";
+    registrationMessage.textContent = "Facebook sign-in successful!";
     setTimeout(() => {
       window.location.href = "/";
     }, 1000);
