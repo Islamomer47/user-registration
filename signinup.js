@@ -82,14 +82,14 @@ signInForm.addEventListener("submit", async (e) => {
   }
 });
 
-async function handleGoogleAuth(isSignUp) {
+const googleSignInBtn = document.getElementById("googleSignInBtn");
+googleSignInBtn.addEventListener("click", async () => {
   const provider = new GoogleAuthProvider();
 
   try {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
 
-    // Extract user details
     const [firstName, lastName] = user.displayName
       ? user.displayName.split(" ")
       : ["", ""];
@@ -103,25 +103,18 @@ async function handleGoogleAuth(isSignUp) {
     await setDoc(doc(firestore, "users", user.uid), userData);
     await set(ref(database, `users/${user.uid}`), userData);
 
-    registrationMessage.textContent = isSignUp
-      ? "Google sign-up successful!"
-      : "Google sign-in successful!";
+    registrationMessage.textContent = "Google sign-in successful!";
     setTimeout(() => {
       window.location.href = "/";
     }, 1000);
   } catch (error) {
     registrationMessage.textContent = `Error: ${error.message}`;
   }
-}
-
-const googleSignInBtn = document.getElementById("googleSignInBtn");
-googleSignInBtn.addEventListener("click", () => handleGoogleAuth(false));
+});
 
 const googleSignUpBtn = document.getElementById("googleSignUpBtn");
-googleSignUpBtn.addEventListener("click", () => handleGoogleAuth(true));
-
-async function handleFacebookAuth(isSignUp) {
-  const provider = new FacebookAuthProvider();
+googleSignUpBtn.addEventListener("click", async () => {
+  const provider = new GoogleAuthProvider();
 
   try {
     const result = await signInWithPopup(auth, provider);
@@ -140,22 +133,66 @@ async function handleFacebookAuth(isSignUp) {
     await setDoc(doc(firestore, "users", user.uid), userData);
     await set(ref(database, `users/${user.uid}`), userData);
 
-    registrationMessage.textContent = isSignUp
-      ? "Facebook sign-up successful!"
-      : "Facebook sign-in successful!";
+    registrationMessage.textContent = "Google sign-up successful!";
     setTimeout(() => {
       window.location.href = "/";
     }, 1000);
   } catch (error) {
     registrationMessage.textContent = `Error: ${error.message}`;
   }
-}
+});
 
 const facebookSignInBtn = document.getElementById("facebookSignInBtn");
-facebookSignInBtn.addEventListener("click", () => handleFacebookAuth(false));
+facebookSignInBtn.addEventListener("click", async () => {
+  const provider = new FacebookAuthProvider();
+
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    const userData = {
+      firstName: user.displayName.split(" ")[0],
+      lastName: user.displayName.split(" ")[1],
+      email: user.email,
+      age: 0,
+    };
+
+    await setDoc(doc(firestore, "users", user.uid), userData);
+    await set(ref(database, `users/${user.uid}`), userData);
+
+    registrationMessage.textContent = "Facebook sign-in successful!";
+    setTimeout(() => {
+      window.location.href = "/User-Registration";
+    }, 1000);
+  } catch (error) {
+    registrationMessage.textContent = `Error: ${error.message}`;
+  }
+});
 
 const facebookSignUpBtn = document.getElementById("facebookSignUpBtn");
-facebookSignUpBtn.addEventListener("click", () => handleFacebookAuth(true));
+facebookSignUpBtn.addEventListener("click", async () => {
+  const provider = new FacebookAuthProvider();
+
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    const userData = {
+      firstName: user.displayName.split(" ")[0],
+      lastName: user.displayName.split(" ")[1],
+      email: user.email,
+      age: 0,
+    };
+
+    await setDoc(doc(firestore, "users", user.uid), userData);
+    await set(ref(database, `users/${user.uid}`), userData);
+
+    registrationMessage.textContent = "Facebook sign-up successful!";
+    setTimeout(() => {
+      window.location.href = "/User-Registration";
+    }, 1000);
+  } catch (error) {
+    registrationMessage.textContent = `Error: ${error.message}`;
+  }
+});
 
 const sign_in_btn = document.querySelector("#sign-in-btn");
 const sign_up_btn = document.querySelector("#sign-up-btn");
