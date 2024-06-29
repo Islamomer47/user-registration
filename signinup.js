@@ -42,6 +42,8 @@ signUpForm.addEventListener("submit", async (e) => {
     await setDoc(doc(firestore, "users", user.uid), userData);
     await set(ref(database, `users/${user.uid}`), userData);
 
+    localStorage.setItem("userData", JSON.stringify(userData));
+
     registrationMessage.textContent = "Registration successful!";
     setTimeout(() => {
       window.location.href = "/";
@@ -73,6 +75,12 @@ signInForm.addEventListener("submit", async (e) => {
     );
     const user = userCredential.user;
 
+    const userData = {
+      email: user.email,
+      uid: user.uid,
+    };
+    localStorage.setItem("userData", JSON.stringify(userData));
+
     signInMessage.textContent = "Sign-in successful!";
     setTimeout(() => {
       window.location.href = "/";
@@ -90,18 +98,19 @@ googleSignInBtn.addEventListener("click", async () => {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
 
-    const [firstName, lastName] = user.displayName
+    const [username] = user.displayName
       ? user.displayName.split(" ")
       : ["", ""];
     const userData = {
-      firstName,
-      lastName,
+      username,
       email: user.email,
-      age: 0,
+      uid: user.uid,
     };
 
     await setDoc(doc(firestore, "users", user.uid), userData);
     await set(ref(database, `users/${user.uid}`), userData);
+
+    localStorage.setItem("userData", JSON.stringify(userData));
 
     registrationMessage.textContent = "Google sign-in successful!";
     setTimeout(() => {
@@ -120,18 +129,19 @@ googleSignUpBtn.addEventListener("click", async () => {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
 
-    const [firstName, lastName] = user.displayName
+    const [username] = user.displayName
       ? user.displayName.split(" ")
       : ["", ""];
     const userData = {
-      firstName,
-      lastName,
+      username,
       email: user.email,
-      age: 0,
+      uid: user.uid,
     };
 
     await setDoc(doc(firestore, "users", user.uid), userData);
     await set(ref(database, `users/${user.uid}`), userData);
+
+    localStorage.setItem("userData", JSON.stringify(userData));
 
     registrationMessage.textContent = "Google sign-up successful!";
     setTimeout(() => {
@@ -150,14 +160,16 @@ facebookSignInBtn.addEventListener("click", async () => {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     const userData = {
-      firstName: user.displayName.split(" ")[0],
-      lastName: user.displayName.split(" ")[1],
+      username: user.displayName.split(" ")[0],
       email: user.email,
+      uid: user.uid,
       age: 0,
     };
 
     await setDoc(doc(firestore, "users", user.uid), userData);
     await set(ref(database, `users/${user.uid}`), userData);
+
+    localStorage.setItem("userData", JSON.stringify(userData));
 
     registrationMessage.textContent = "Facebook sign-in successful!";
     setTimeout(() => {
@@ -176,14 +188,16 @@ facebookSignUpBtn.addEventListener("click", async () => {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     const userData = {
-      firstName: user.displayName.split(" ")[0],
-      lastName: user.displayName.split(" ")[1],
+      username: user.displayName.split(" ")[0],
       email: user.email,
+      uid: user.uid,
       age: 0,
     };
 
     await setDoc(doc(firestore, "users", user.uid), userData);
     await set(ref(database, `users/${user.uid}`), userData);
+
+    localStorage.setItem("userData", JSON.stringify(userData));
 
     registrationMessage.textContent = "Facebook sign-up successful!";
     setTimeout(() => {
