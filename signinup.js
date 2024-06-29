@@ -161,7 +161,7 @@ facebookSignInBtn.addEventListener("click", async () => {
 
     registrationMessage.textContent = "Facebook sign-in successful!";
     setTimeout(() => {
-      window.location.href = "/User-Registration";
+      window.location.href = "/";
     }, 1000);
   } catch (error) {
     registrationMessage.textContent = `Error: ${error.message}`;
@@ -187,7 +187,7 @@ facebookSignUpBtn.addEventListener("click", async () => {
 
     registrationMessage.textContent = "Facebook sign-up successful!";
     setTimeout(() => {
-      window.location.href = "/User-Registration";
+      window.location.href = "/";
     }, 1000);
   } catch (error) {
     registrationMessage.textContent = `Error: ${error.message}`;
