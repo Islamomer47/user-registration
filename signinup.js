@@ -25,8 +25,23 @@ signUpForm.addEventListener("submit", async (e) => {
   const password = formData.get("password");
   const gender = formData.get("gender");
 
+  // Regex patterns for email and password validation
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+
   if (!username || !email || !password || !gender) {
     registrationMessage.textContent = "Please fill in all fields.";
+    return;
+  }
+
+  if (!emailPattern.test(email)) {
+    registrationMessage.textContent = "Invalid email format.";
+    return;
+  }
+
+  if (!passwordPattern.test(password)) {
+    registrationMessage.textContent =
+      "Password must be at least 8 characters long and contain at least one numeric digit, one uppercase and one lowercase letter.";
     return;
   }
 
@@ -49,7 +64,7 @@ signUpForm.addEventListener("submit", async (e) => {
       window.location.href = "/";
     }, 1000);
   } catch (error) {
-    registrationMessage.textContent = `Error: ${error.message}`;
+    registrationMessage.textContent = `  ${error.message}`;
   }
 });
 
@@ -62,8 +77,16 @@ signInForm.addEventListener("submit", async (e) => {
   const email = document.getElementById("sign-in-email").value;
   const password = document.getElementById("sign-in-password").value;
 
+  // Regex pattern for email validation
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   if (!email || !password) {
     signInMessage.textContent = "Please fill in all fields.";
+    return;
+  }
+
+  if (!emailPattern.test(email)) {
+    signInMessage.textContent = "Invalid email format.";
     return;
   }
 
@@ -86,7 +109,7 @@ signInForm.addEventListener("submit", async (e) => {
       window.location.href = "/";
     }, 1000);
   } catch (error) {
-    signInMessage.textContent = `Error: ${error.message}`;
+    signInMessage.textContent = `  ${error.message}`;
   }
 });
 
@@ -117,7 +140,7 @@ googleSignInBtn.addEventListener("click", async () => {
       window.location.href = "/";
     }, 4000);
   } catch (error) {
-    registrationMessage.textContent = `Error: ${error.message}`;
+    registrationMessage.textContent = `  ${error.message}`;
   }
 });
 
@@ -148,7 +171,7 @@ googleSignUpBtn.addEventListener("click", async () => {
       window.location.href = "/";
     }, 4000);
   } catch (error) {
-    registrationMessage.textContent = `Error: ${error.message}`;
+    registrationMessage.textContent = `  ${error.message}`;
   }
 });
 
@@ -174,7 +197,7 @@ facebookSignInBtn.addEventListener("click", async () => {
       window.location.href = "/";
     }, 4000);
   } catch (error) {
-    registrationMessage.textContent = `Error: ${error.message}`;
+    registrationMessage.textContent = `  ${error.message}`;
   }
 });
 
@@ -195,12 +218,12 @@ facebookSignUpBtn.addEventListener("click", async () => {
 
     localStorage.setItem("userData", JSON.stringify(userData));
 
-    registrationMessage.textContent = "Facebook sign-in successful!";
+    registrationMessage.textContent = "Facebook sign-up successful!";
     setTimeout(() => {
       window.location.href = "/";
     }, 4000);
   } catch (error) {
-    registrationMessage.textContent = `Error: ${error.message}`;
+    registrationMessage.textContent = `  ${error.message}`;
   }
 });
 
